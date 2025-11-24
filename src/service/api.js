@@ -10,6 +10,15 @@ const api = {
 
   // 取得單一商品
   getProductById: (id) => apiService.get(API_ROUTES.PRODUCT_DETAIL(id)),
+
+  // 取得產品管理列表
+  getManageProducts: () => apiService.get(API_ROUTES.PRODUCT_MANAGE_LIST),
+
+  // 新增產品
+  addProduct: (data) => apiService.post(API_ROUTES.PRODUCT_ADD, data),
+
+  // 刪除產品
+  deleteProduct: (id) => apiService.put(API_ROUTES.PRODUCT_DELETE(id)),
 }
 
 export default api

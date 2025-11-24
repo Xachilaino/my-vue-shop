@@ -24,20 +24,34 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useUserStore } from '@/stores/userStore'
-import { useNavigation } from '@/composables/useNavigation' // 引入 useNavigation
+import { useUserStore } from '@/store/userStore'
+import { useNavigation } from '@/composables/useNavigation'
+import { ElMessage } from 'element-plus'
 
 const form = ref({
-  username: 'admin',
+  username: 'admin', // 後端預設的使用者
   password: 'password',
 })
 
 const userStore = useUserStore()
-const { goHome } = useNavigation() // 使用 useNavigation
+const { goHome } = useNavigation()
 
-const handleLogin = () => {
-  userStore.login({ username: form.value.username })
-  goHome() // 直接使用 goHome
+const handleLogin = async () => {
+  try {
+    const success = await userStore.login({
+      username: form.value.username,
+      password: form.value.password,
+    })
+
+    if (success) {
+      ElMessage.success('登入成功！')
+      goHome()
+    }
+    // 失敗的訊息會由 apiService 的攔截器統一處理
+  } catch (error) {
+    console.error('Login failed:', error)
+    // 錯誤訊息也由攔截器處理
+  }
 }
 </script>
 
