@@ -1,11 +1,11 @@
 <template>
   <div class="sidebar-wrapper">
-    <el-menu class="sidebar-menu">
-      <el-menu-item index="1">
-        <span>商品分類一</span>
+    <el-menu class="sidebar-menu" router>
+      <el-menu-item index="/products">
+        <span>商品列表</span>
       </el-menu-item>
-      <el-menu-item index="2">
-        <span>商品分類二</span>
+      <el-menu-item index="/another-page">
+        <span>另一個分類</span>
       </el-menu-item>
     </el-menu>
   </div>
