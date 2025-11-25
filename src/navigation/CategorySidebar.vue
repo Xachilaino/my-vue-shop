@@ -5,9 +5,11 @@
         <span>商品列表</span>
       </el-menu-item>
 
-      <el-menu-item v-if="userRole === 'ADMIN'" index="/admin/products">
-        <span>商品管理</span>
-      </el-menu-item>
+      <el-sub-menu v-if="userRole === 'ADMIN'" index="/admin">
+        <template #title><span>後台管理</span></template>
+        <el-menu-item index="/admin/products">商品管理</el-menu-item>
+        <el-menu-item index="/admin/settings/options">選項管理</el-menu-item>
+      </el-sub-menu>
     </el-menu>
   </div>
 </template>

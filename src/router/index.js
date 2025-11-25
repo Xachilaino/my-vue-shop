@@ -26,6 +26,12 @@ const routes = [
     component: () => import('@/views/products/EditProduct.vue'),
     meta: { requiresAuth: true, roles: ['ADMIN'] },
   },
+  {
+    path: '/admin/settings/options',
+    name: 'OptionsManage',
+    component: () => import('@/views/settings/OptionsManage.vue'),
+    meta: { requiresAuth: true, roles: ['ADMIN'] },
+  },
 ]
 
 const router = createRouter({

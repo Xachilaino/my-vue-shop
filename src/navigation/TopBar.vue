@@ -2,11 +2,21 @@
   <header class="top-bar">
     <div class="logo" @click="goHome" style="cursor: pointer">🛒 我的商城</div>
     <div class="auth">
-      <el-button v-if="!isLoggedIn" type="primary" @click="goLogin">登入</el-button>
+      <el-button v-if="!isLoggedIn" type="primary" @click="goTo('Login')">登入</el-button>
 
       <div v-else class="user-menu">
-        <span>👤 {{ user.username }}</span>
-        <el-button type="danger" plain @click="handleLogout">登出</el-button>
+        <span>👤 {{ username }}</span>
+        <el-dropdown>
+          <el-button type="primary" circle>
+            <el-icon><User /></el-icon>
+          </el-button>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item @click="goTo('Profile')">個人資料</el-dropdown-item>
+              <el-dropdown-item divided @click="handleLogout">登出</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </div>
     </div>
   </header>
@@ -14,14 +24,15 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useUserStore } from '@/stores/userStore'
-import { useNavigation } from '@/composables/useNavigation' // 引入 useNavigation
+import { useUserStore } from '@/store/userStore'
+import { useNavigation } from '@/composables/useNavigation'
+import { User } from '@element-plus/icons-vue'
 
 const userStore = useUserStore()
-const { goHome, goLogin } = useNavigation() // 使用 useNavigation
+const { goHome, goTo } = useNavigation()
 
 const isLoggedIn = computed(() => userStore.isLoggedIn)
-const user = computed(() => userStore.user)
+const username = computed(() => userStore.username) // 從 store 獲取 username
 
 const handleLogout = () => {
   userStore.logout()
